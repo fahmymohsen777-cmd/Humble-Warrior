@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Mail, MapPin, Phone, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
@@ -32,15 +32,15 @@ export default function ContactSection() {
                 </p>
               </ScrollReveal>
 
-              <div className="space-y-8">
+              <div className="space-y-6">
                 <ScrollReveal delay={0.1}>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
                       <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
                     </div>
                     <div>
-                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Prague 1 Clinic</h4>
-                      <p className="text-[var(--color-text-3)] text-sm">Staré Město, Prague<br/>(Exact address provided upon booking)</p>
+                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Prague Clinic</h4>
+                      <p className="text-[var(--color-text-3)] text-sm">Vyšehradská 420, Nové Město<br/>(New Town), Prague, Czechia</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -48,23 +48,48 @@ export default function ContactSection() {
                 <ScrollReveal delay={0.2}>
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
+                      <Phone className="w-4 h-4 text-[var(--color-primary)]" />
+                    </div>
+                    <div>
+                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Phone</h4>
+                      <a href="tel:+420722199439" className="text-[var(--color-text-3)] hover:text-[var(--color-primary)] transition-colors text-sm">
+                        +420 722 199 439
+                      </a>
+                    </div>
+                  </div>
+                </ScrollReveal>
+
+                <ScrollReveal delay={0.3}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
                       <Mail className="w-4 h-4 text-[var(--color-primary)]" />
                     </div>
                     <div>
                       <h4 className="text-[var(--color-text-1)] font-medium mb-1">Email</h4>
-                      <a href="mailto:hello@humblewarriorpsych.com" className="text-[var(--color-text-3)] hover:text-[var(--color-primary)] transition-colors text-sm">
-                        hello@humblewarriorpsych.com
+                      <a href="mailto:trinityreda@gmail.com" className="text-[var(--color-text-3)] hover:text-[var(--color-primary)] transition-colors text-sm">
+                        trinityreda@gmail.com
                       </a>
+                    </div>
+                  </div>
+                </ScrollReveal>
+                <ScrollReveal delay={0.4}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
+                      <Clock className="w-4 h-4 text-[var(--color-primary)]" />
+                    </div>
+                    <div>
+                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Hours</h4>
+                      <p className="text-[var(--color-text-3)] text-sm">Mon–Fri, 10:00–18:00</p>
                     </div>
                   </div>
                 </ScrollReveal>
               </div>
             </div>
             
-            <ScrollReveal delay={0.3}>
+            <ScrollReveal delay={0.5}>
               <div className="mt-16 pt-16 border-t border-[var(--color-border)]">
                 <p className="text-[var(--color-text-3)] text-sm mb-6">Or book directly through the portal:</p>
-                <MagneticButton href="https://humblewarriorpsychology.simplybook.it" target="_blank" className="btn btn-ghost w-full justify-between group">
+                <MagneticButton href="https://humblewarriorpsychology.as.me/" target="_blank" className="btn btn-ghost w-full justify-between group">
                   Open Booking Portal
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </MagneticButton>

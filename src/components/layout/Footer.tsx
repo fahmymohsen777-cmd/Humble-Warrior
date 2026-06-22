@@ -52,9 +52,9 @@ export default function Footer() {
             <div>
               <h4 className="text-[var(--color-text-1)] font-semibold text-sm uppercase tracking-wider mb-6">Contact</h4>
               <ul className="space-y-4 text-sm text-[var(--color-text-2)]">
-                <li><a href="mailto:hello@humblewarriorpsych.com" className="hover:text-[var(--color-primary)] transition-colors">hello@humblewarriorpsych.com</a></li>
+                <li><a href="mailto:trinityreda@gmail.com" className="hover:text-[var(--color-primary)] transition-colors">trinityreda@gmail.com</a></li>
                 <li>Prague 1, Czech Republic</li>
-                <li><a href="https://humblewarriorpsychology.simplybook.it" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline">Book a Consultation</a></li>
+                <li><a href="https://humblewarriorpsychology.as.me/" target="_blank" rel="noopener noreferrer" className="text-[var(--color-primary)] hover:underline">Book a Consultation</a></li>
               </ul>
             </div>
           </ScrollReveal>
@@ -70,15 +70,6 @@ export default function Footer() {
             </div>
           </ScrollReveal>
 
-        </div>
-
-        {/* Tagline Marquee Strip */}
-        <div className="border-y border-[var(--color-border)] py-4 mb-8">
-          <InfiniteMarquee 
-            items={["CBT", "Schema Therapy", "English Native", "Evidence-Based", "Prague", "Online"]} 
-            direction="left"
-            speed="slow"
-          />
         </div>
 
         {/* Bottom */}

@@ -112,7 +112,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <ThemeToggle />
               <a
-                href="https://humblewarriorpsychology.simplybook.it"
+                href="https://humblewarriorpsychology.as.me/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary hidden sm:inline-flex"
@@ -193,7 +193,7 @@ export default function Navbar() {
                 className="mt-8"
               >
                 <a
-                  href="https://humblewarriorpsychology.simplybook.it"
+                  href="https://humblewarriorpsychology.as.me/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"

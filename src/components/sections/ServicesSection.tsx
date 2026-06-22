@@ -41,7 +41,7 @@ export default function ServicesSection() {
                 </div>
                 
                 <div className="flex items-center gap-4 mt-auto">
-                  <a href="https://humblewarriorpsychology.simplybook.it" target="_blank" rel="noopener noreferrer" className="btn btn-primary text-xs px-6 py-3">
+                  <a href="https://humblewarriorpsychology.as.me/" target="_blank" rel="noopener noreferrer" className="btn btn-primary text-xs px-6 py-3">
                     Book Consultation
                   </a>
                   <span className="text-sm font-medium text-[var(--color-text-3)]">15 mins • Free</span>
@@ -63,7 +63,7 @@ export default function ServicesSection() {
                   </p>
                 </div>
                 
-                <a href="https://humblewarriorpsychology.simplybook.it" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-text-1)] transition-colors group">
+                <a href="https://humblewarriorpsychology.as.me/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-text-1)] transition-colors group">
                   Learn more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
               </SpotlightCard>
@@ -91,6 +91,36 @@ export default function ServicesSection() {
             </div>
           ))}
 
+        </div>
+
+        {/* Pricing */}
+        <div className="mt-6">
+          <ScrollReveal direction="up" delay={0.4}>
+            <SpotlightCard className="p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 bg-[var(--color-surface-2)]">
+              <div>
+                <div className="label mb-4">Investment</div>
+                <h3 className="font-display text-3xl md:text-4xl text-[var(--color-text-1)] mb-4">
+                  Transparent Pricing
+                </h3>
+                <p className="text-[var(--color-text-2)] max-w-md">
+                  Therapy is an investment in your future. Rates are straightforward with no hidden fees.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+                <div className="glass p-6 rounded-2xl flex-1 border border-[var(--color-border)]">
+                  <h4 className="font-semibold text-[var(--color-text-1)] text-lg mb-1">Individual Therapy</h4>
+                  <p className="text-sm text-[var(--color-text-3)] mb-4">60 min session</p>
+                  <p className="font-display text-2xl text-[var(--color-primary)]">1500 CZK</p>
+                </div>
+                <div className="glass p-6 rounded-2xl flex-1 border border-[var(--color-border)]">
+                  <h4 className="font-semibold text-[var(--color-text-1)] text-lg mb-1">Couples Counselling</h4>
+                  <p className="text-sm text-[var(--color-text-3)] mb-4">60 min session</p>
+                  <p className="font-display text-2xl text-[var(--color-primary)]">2100 CZK</p>
+                </div>
+              </div>
+            </SpotlightCard>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "What is your cancellation policy?",
-    a: "I require 48 hours notice for cancellations. Sessions cancelled with less than 48 hours notice will be charged at the full rate, as that time was reserved specifically for you."
+    a: "I require 24 hours notice for cancellations. Sessions cancelled with less than 24 hours notice will incur a 75% fee (1125 CZK for individual sessions / 1575 CZK for couples sessions), as that time was reserved specifically for you."
   }
 ];
 

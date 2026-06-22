@@ -277,7 +277,7 @@ export default async function BlogPostPage({ params }: Props) {
                 Ready to do this work?
               </p>
               <a
-                href="https://humblewarriorpsychology.simplybook.it"
+                href="https://humblewarriorpsychology.as.me/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary"

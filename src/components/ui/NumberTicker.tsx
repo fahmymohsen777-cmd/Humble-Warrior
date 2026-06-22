@@ -13,7 +13,7 @@ interface NumberTickerProps {
 
 export function NumberTicker({ end, suffix = "", prefix = "", duration = 2000, className }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   const [value, setValue] = useState(0);
 
   useEffect(() => {

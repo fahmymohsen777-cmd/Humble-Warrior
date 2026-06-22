@@ -33,7 +33,7 @@ export default function AboutSection() {
                   <div className="w-px h-12 bg-[var(--color-border)]" />
                   <div>
                     <p className="text-3xl font-display text-[var(--color-primary)] mb-1">
-                      <NumberTicker end={100} suffix="s" />
+                      <NumberTicker end={100} suffix="+" />
                     </p>
                     <p className="text-xs uppercase tracking-wider text-[var(--color-text-2)] font-semibold">Clients</p>
                   </div>

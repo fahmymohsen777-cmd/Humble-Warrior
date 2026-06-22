@@ -273,7 +273,7 @@ export default function HeroSection() {
           className="flex flex-wrap gap-4"
         >
           <a
-            href="https://humblewarriorpsychology.simplybook.it"
+            href="https://humblewarriorpsychology.as.me/"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary group"
