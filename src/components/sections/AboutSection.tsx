@@ -1,195 +1,100 @@
 "use client";
-import { FadeUp, AnimatedCounter } from "@/components/animations";
-
-const stats = [
-  { value: 10, suffix: "+", label: "Years in Prague", desc: "Native English speaker, Canadian therapist" },
-  { value: 10, suffix: "", label: "Session Program", desc: "Structured with data-driven results" },
-  { value: 2, suffix: "", label: "Core Modalities", desc: "CBT + Schema Therapy integrated" },
-  { value: 100, suffix: "%", label: "Evidence-Based", desc: "Every session grounded in research" },
-];
+import React from "react";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { WordReveal } from "@/components/ui/WordReveal";
+import { NumberTicker } from "@/components/ui/NumberTicker";
+import { CheckCircle2 } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="section" style={{ background: "var(--cream-100)" }}>
-      <div className="container">
-        {/* Header */}
-        <FadeUp className="text-center mb-20">
-          <p className="section-label justify-center">About Me</p>
-          <h2
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(2.2rem, 4vw, 3.5rem)",
-              fontWeight: 400,
-              color: "var(--primary-dark)",
-              lineHeight: 1.15,
-            }}
-          >
-            Meet your therapist —{" "}
-            <span style={{ fontStyle: "italic", color: "var(--sage-500)" }}>
-              Trinity Reda
-            </span>
-          </h2>
-        </FadeUp>
-
-        {/* Main content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-          {/* Left: image placeholder */}
-          <FadeUp delay={100}>
-            <div className="relative">
-              {/* Main image placeholder */}
-              <div
-                className="rounded-2xl overflow-hidden relative"
-                style={{
-                  height: "520px",
-                  background: "linear-gradient(145deg, var(--sage-200), var(--sage-400))",
-                }}
-              >
-                {/* Placeholder icon */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 opacity-30">
-                  <div className="w-24 h-24 rounded-full" style={{ background: "var(--sage-600)" }} />
-                  <div className="w-40 h-3 rounded-full" style={{ background: "var(--sage-600)" }} />
-                  <div className="w-28 h-2 rounded-full" style={{ background: "var(--sage-600)" }} />
-                </div>
-                {/* Image — replace src with actual photo */}
-                {/* <Image src="/images/trinity-reda.jpg" alt="Trinity Reda" fill className="object-cover" /> */}
-
-                {/* Credential badge */}
-                <div
-                  className="absolute bottom-6 left-6 right-6 glass rounded-xl p-4"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: "var(--accent)", fontFamily: "var(--font-inter)" }}>
-                    Mgr. Trinity Reda
-                  </p>
-                  <p className="text-sm" style={{ color: "var(--charcoal)", fontFamily: "var(--font-inter)" }}>
-                    Doctoral Candidate, Charles University Prague<br />
-                    Clinical & Counselling Psychology
-                  </p>
-                </div>
-              </div>
-
-              {/* Decorative element */}
-              <div
-                className="absolute -top-6 -left-6 w-24 h-24 rounded-full opacity-40 -z-10 animate-float"
-                style={{ background: "var(--sage-300)" }}
-              />
-              <div
-                className="absolute -bottom-6 -right-6 w-16 h-16 rounded-full opacity-30 -z-10 animate-float-reverse"
-                style={{ background: "var(--terra-400)" }}
-              />
-            </div>
-          </FadeUp>
-
-          {/* Right: text content */}
-          <div>
-            <FadeUp delay={150}>
-              <p className="section-label">My Story</p>
-              <h3
-                className="mb-6"
-                style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: "2rem",
-                  fontWeight: 400,
-                  color: "var(--primary-dark)",
-                  lineHeight: 1.25,
-                }}
-              >
-                An experienced psychologist who understands the expat experience
-              </h3>
-            </FadeUp>
-
-            <FadeUp delay={200}>
-              <p className="mb-5 text-base leading-relaxed" style={{ color: "var(--charcoal-light)", fontFamily: "var(--font-inter)" }}>
-                Hi! I&apos;m Trinity Reda, an experienced CBT and Schema Therapy trained psychologist. 
-                I&apos;m a native English speaker from Canada, and an expat in Prague for over a decade. 
-                I am also currently completing my doctorate in Medical Psychology and Psychopathology 
-                at Charles University.
-              </p>
-              <p className="mb-5 text-base leading-relaxed" style={{ color: "var(--charcoal-light)", fontFamily: "var(--font-inter)" }}>
-                Humble Warrior Psychology is my private therapy practice — built on the belief that 
-                real change requires both understanding the roots of your patterns <em>and</em> having 
-                the tools to reshape them.
-              </p>
-            </FadeUp>
-
-            <FadeUp delay={250}>
-              {/* Philosophy quote */}
-              <blockquote
-                className="my-8 pl-6 py-4 relative"
-                style={{ borderLeft: "3px solid var(--accent)" }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "1.4rem",
-                    fontStyle: "italic",
-                    color: "var(--primary-dark)",
-                    lineHeight: 1.4,
-                  }}
-                >
-                  &ldquo;This is why I work with both Schema Therapy and CBT — 
-                  one without the other only gets you halfway there.&rdquo;
-                </p>
-                <p className="mt-3 text-sm" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                  — Trinity Reda
-                </p>
-              </blockquote>
-            </FadeUp>
-
-            <FadeUp delay={300}>
-              {/* Credentials */}
-              <div className="space-y-3">
-                {[
-                  "B.A. Psychology — Concordia University, Montreal",
-                  "Mgr. Clinical & Counselling Psychology",
-                  "Doctoral Candidate — Medical Psychology, Charles University Prague",
-                  "CBT Certified · Schema Therapy Trained",
-                ].map((cred) => (
-                  <div key={cred} className="flex items-center gap-3">
-                    <div
-                      className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: "var(--sage-100)", border: "1.5px solid var(--sage-400)" }}
-                    >
-                      <div className="w-2 h-2 rounded-full" style={{ background: "var(--sage-500)" }} />
-                    </div>
-                    <span className="text-sm" style={{ color: "var(--charcoal)", fontFamily: "var(--font-inter)" }}>
-                      {cred}
-                    </span>
+    <section id="about" className="relative bg-[var(--color-surface-2)]">
+      <div className="container-lg py-24 md:py-32 lg:py-40">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+          
+          {/* Left Column: Sticky Visual */}
+          <div className="lg:sticky lg:top-32 relative">
+            <ScrollReveal direction="left">
+              <div className="relative rounded-[2rem] overflow-hidden aspect-[4/5] w-full max-w-md mx-auto lg:mx-0 bg-stone-200">
+                <img 
+                  src="/images/trinity.jpg" 
+                  alt="Mgr. Trinity Reda"
+                  className="object-cover w-full h-full opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-transparent to-transparent opacity-80" />
+                
+                {/* Floating Stats */}
+                <div className="absolute bottom-8 left-8 right-8 glass p-6 rounded-2xl flex items-center justify-between">
+                  <div>
+                    <p className="text-3xl font-display text-[var(--color-primary)] mb-1">
+                      <NumberTicker end={10} suffix="+" />
+                    </p>
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-text-2)] font-semibold">Years Exp.</p>
                   </div>
-                ))}
+                  <div className="w-px h-12 bg-[var(--color-border)]" />
+                  <div>
+                    <p className="text-3xl font-display text-[var(--color-primary)] mb-1">
+                      <NumberTicker end={100} suffix="s" />
+                    </p>
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-text-2)] font-semibold">Clients</p>
+                  </div>
+                </div>
               </div>
-            </FadeUp>
+            </ScrollReveal>
           </div>
-        </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, i) => (
-            <FadeUp key={stat.label} delay={i * 80}>
-              <div
-                className="card-premium p-8 text-center"
-                style={{ background: i % 2 === 0 ? "var(--surface)" : "var(--stone-100)" }}
-              >
-                <p
-                  className="mb-2"
-                  style={{
-                    fontFamily: "var(--font-cormorant)",
-                    fontSize: "3rem",
-                    fontWeight: 500,
-                    color: "var(--primary)",
-                    lineHeight: 1,
-                  }}
-                >
-                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="font-semibold text-sm mb-1" style={{ color: "var(--primary-dark)", fontFamily: "var(--font-inter)" }}>
-                  {stat.label}
-                </p>
-                <p className="text-xs" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                  {stat.desc}
+          {/* Right Column: Scroll Content */}
+          <div className="flex flex-col justify-center space-y-16 mt-8 lg:mt-0">
+            
+            {/* Intro */}
+            <div>
+              <ScrollReveal>
+                <div className="label mb-6">About Trinity Reda</div>
+              </ScrollReveal>
+              
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-1)] leading-[1.1] mb-8">
+                <WordReveal text="Evidence-based therapy rooted in genuine connection." />
+              </h2>
+              
+              <ScrollReveal delay={0.2}>
+                <div className="space-y-6 text-lg text-[var(--color-text-2)] font-light leading-relaxed">
+                  <p>
+                    Hi, I'm Mgr. Trinity Reda. For over a decade, I've dedicated my career to helping expats and locals in Prague navigate the complexities of their inner worlds.
+                  </p>
+                  <p>
+                    My approach is grounded in science but delivered with warmth. As a Doctoral Candidate at Charles University, I stay at the forefront of psychological research, translating complex clinical concepts into practical, everyday tools for my clients.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* Quote */}
+            <ScrollReveal direction="up" delay={0.1}>
+              <div className="pl-8 border-l-2 border-[var(--color-primary)] py-2 my-12">
+                <p className="font-display italic text-2xl md:text-3xl text-[var(--color-text-1)] leading-snug">
+                  "Healing doesn't mean the damage never existed. It means the damage no longer controls our lives."
                 </p>
               </div>
-            </FadeUp>
-          ))}
+            </ScrollReveal>
+
+            {/* Credentials */}
+            <ScrollReveal delay={0.3}>
+              <h3 className="text-sm font-semibold tracking-widest uppercase text-[var(--color-text-3)] mb-6">Professional Credentials</h3>
+              <ul className="space-y-4">
+                {[
+                  "Doctoral Candidate in Psychology, Charles University",
+                  "Certified Cognitive Behavioural Therapist (CBT)",
+                  "Advanced Training in Schema Therapy",
+                  "Member of the Czech Association for Psychotherapy"
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-4">
+                    <CheckCircle2 className="w-5 h-5 text-[var(--color-primary)] shrink-0 mt-0.5" />
+                    <span className="text-[var(--color-text-2)]">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
+
+          </div>
         </div>
       </div>
     </section>

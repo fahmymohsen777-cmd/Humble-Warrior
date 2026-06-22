@@ -1,178 +1,211 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/#about", label: "About Me" },
-  { href: "/#services", label: "Services" },
+const links = [
+  { href: "/#about",        label: "About" },
+  { href: "/#services",     label: "Services" },
   { href: "/#testimonials", label: "Testimonials" },
-  { href: "/#faq", label: "F.A.Q." },
-  { href: "/blog", label: "Blog" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#faq",          label: "FAQ" },
+  { href: "/blog",          label: "Blog" },
+  { href: "/#contact",      label: "Contact" },
 ];
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const menuRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return scrollY.on("change", (y) => setScrolled(y > 60));
+  }, [scrollY]);
 
   useEffect(() => {
-    if (mobileOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
+  }, [open]);
+
+  const navBg = useTransform(scrollY, [0, 80], ["rgba(0,0,0,0)", "rgba(255,255,255,0)"]);
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "py-3 glass shadow-lg shadow-sage-900/5"
-            : "py-5 bg-transparent"
-        }`}
-        style={{ fontFamily: "var(--font-inter)" }}
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50"
+        style={{ y: 0 }}
       >
-        <div className="container-wide flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="group flex flex-col leading-none" onClick={() => setMobileOpen(false)}>
-            <span
-              className="text-xl font-semibold tracking-tight transition-colors group-hover:opacity-80"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                color: scrolled ? "var(--primary-dark)" : "white",
-                fontSize: "1.4rem",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Humble Warrior
-            </span>
-            <span
-              className="text-xs tracking-widest uppercase mt-0.5"
-              style={{
-                fontFamily: "var(--font-inter)",
-                color: scrolled ? "var(--accent)" : "rgba(255,255,255,0.7)",
-                fontSize: "0.6rem",
-              }}
-            >
-              Psychology
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 rounded-full text-sm transition-all duration-200 hover:bg-white/10"
+        <motion.div
+          className="mx-4 mt-4 rounded-2xl transition-all duration-500"
+          style={{
+            background: scrolled
+              ? "var(--glass-bg)"
+              : "transparent",
+            backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+            WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+            borderColor: scrolled ? "var(--glass-border)" : "transparent",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.08)" : "none",
+          }}
+        >
+          <div className="flex items-center justify-between px-6 py-4">
+            {/* Logo */}
+            <Link href="/" onClick={() => setOpen(false)} className="group flex flex-col leading-none">
+              <motion.span
+                className="font-display tracking-tight"
                 style={{
-                  color: scrolled ? "var(--charcoal)" : "rgba(255,255,255,0.9)",
-                  fontFamily: "var(--font-inter)",
-                  fontSize: "0.85rem",
+                  fontSize: "1.3rem",
                   fontWeight: 400,
-                  letterSpacing: "0.01em",
+                  color: "var(--color-text-1)",
+                  letterSpacing: "-0.02em",
+                }}
+                whileHover={{ letterSpacing: "-0.01em" }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              >
+                Humble Warrior
+              </motion.span>
+              <span
+                className="label"
+                style={{
+                  fontSize: "0.55rem",
+                  letterSpacing: "0.2em",
+                  color: "var(--color-accent)",
+                  marginTop: "1px",
                 }}
               >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://humblewarriorpsychology.simplybook.it"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex btn-primary text-xs px-5 py-2.5"
-              style={{ fontSize: "0.8rem" }}
-            >
-              Book a Session
-            </a>
-            <button
-              className="lg:hidden p-2 rounded-full transition-colors"
-              style={{
-                color: scrolled ? "var(--charcoal)" : "white",
-                background: "rgba(255,255,255,0.1)",
-              }}
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
-          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-        style={{ background: "rgba(45, 74, 56, 0.97)", backdropFilter: "blur(20px)" }}
-        ref={menuRef}
-      >
-        {/* Close button top right */}
-        <div className="flex justify-end p-6">
-          <button
-            onClick={() => setMobileOpen(false)}
-            className="p-2 rounded-full text-white/60 hover:text-white transition-colors"
-          >
-            <X size={24} />
-          </button>
-        </div>
-
-        <nav className="flex flex-col items-center justify-center h-3/4 gap-2">
-          {navLinks.map((link, i) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="text-white/80 hover:text-white transition-all duration-300 py-3 px-8 rounded-full hover:bg-white/10"
-              style={{
-                fontFamily: "var(--font-cormorant)",
-                fontSize: "1.8rem",
-                fontWeight: 400,
-                transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
-                opacity: mobileOpen ? 1 : 0,
-                transitionDelay: `${i * 60}ms`,
-              }}
-            >
-              {link.label}
+                Psychology
+              </span>
             </Link>
-          ))}
-          <a
-            href="https://humblewarriorpsychology.simplybook.it"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 btn-primary"
-            onClick={() => setMobileOpen(false)}
+
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-1">
+              {links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="relative px-4 py-2 rounded-xl group"
+                  style={{
+                    fontFamily: "var(--font-inter), sans-serif",
+                    fontSize: "0.82rem",
+                    fontWeight: 400,
+                    color: "var(--color-text-2)",
+                    transition: "color 0.3s ease",
+                    letterSpacing: "0.01em",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-1)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-2)"; }}
+                >
+                  {link.label}
+                  <motion.span
+                    className="absolute bottom-1.5 left-4 right-4 h-px"
+                    style={{ background: "var(--color-primary)", scaleX: 0, originX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right: Theme + CTA + Burger */}
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <a
+                href="https://humblewarriorpsychology.simplybook.it"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary hidden sm:inline-flex"
+                style={{ fontSize: "0.75rem", padding: "10px 22px", gap: "6px" }}
+              >
+                Book Session <ArrowUpRight size={13} />
+              </a>
+              <button
+                className="lg:hidden w-10 h-10 rounded-xl flex items-center justify-center"
+                style={{
+                  background: "var(--color-surface-2)",
+                  border: "1px solid var(--color-border)",
+                  color: "var(--color-text-1)",
+                }}
+                onClick={() => setOpen(!open)}
+                aria-label="Toggle menu"
+              >
+                {open ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </motion.header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 lg:hidden"
             style={{
-              transform: mobileOpen ? "translateY(0)" : "translateY(20px)",
-              opacity: mobileOpen ? 1 : 0,
-              transitionDelay: `${navLinks.length * 60}ms`,
-              transition: "all 0.4s ease",
+              background: "var(--color-bg)",
+              backdropFilter: "blur(20px)",
             }}
           >
-            Book a Session
-          </a>
-        </nav>
+            {/* Decorative bg */}
+            <div
+              className="absolute top-1/4 right-0 w-96 h-96 rounded-full opacity-20 pointer-events-none"
+              style={{ background: "radial-gradient(circle, var(--color-primary-glow), transparent 70%)" }}
+            />
 
-        {/* Decorative blobs */}
-        <div className="absolute bottom-20 left-10 w-48 h-48 rounded-full opacity-10 animate-blob"
-          style={{ background: "var(--sage-400)" }} />
-        <div className="absolute top-20 right-10 w-32 h-32 rounded-full opacity-10 animate-float"
-          style={{ background: "var(--terra-500)" }} />
-      </div>
+            <div className="flex flex-col items-center justify-center h-full gap-2">
+              {links.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 16 }}
+                  transition={{ delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <Link
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="font-display block text-center py-3 px-8"
+                    style={{
+                      fontSize: "clamp(2rem, 6vw, 3rem)",
+                      fontWeight: 300,
+                      fontStyle: "italic",
+                      color: "var(--color-text-2)",
+                      letterSpacing: "-0.02em",
+                      transition: "color 0.3s ease",
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-1)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "var(--color-text-2)"; }}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: links.length * 0.06 + 0.1, duration: 0.5 }}
+                className="mt-8"
+              >
+                <a
+                  href="https://humblewarriorpsychology.simplybook.it"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  onClick={() => setOpen(false)}
+                >
+                  Book a Session <ArrowUpRight size={14} />
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

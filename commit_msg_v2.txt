@@ -1,0 +1,14 @@
+feat: complete premium redesign v2 with light/dark modes
+
+- Refined color palette (Dark luxury + Light default)
+- Installed Lenis and GSAP
+- Implemented SmoothScrollProvider
+- Implemented ThemeProvider and ThemeToggle
+- Created premium UI components (MagneticButton, InfiniteMarquee, FloatingCard, SpotlightCard)
+- Rebuilt HeroSection with animated meshes and mouse spotlight
+- Rebuilt AboutSection with sticky visual and NumberTickers
+- Rebuilt ServicesSection with Bento Grid layout
+- Rebuilt TestimonialsSection with Dual Infinite Marquees
+- Rebuilt FAQSection with borderless animated accordion
+- Rebuilt ContactSection with floating labels and success state
+- Rebuilt Footer with huge watermark text and marquee

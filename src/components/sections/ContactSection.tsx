@@ -1,344 +1,168 @@
 "use client";
-import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from "lucide-react";
-import { FadeUp } from "@/components/animations";
+import React, { useState } from "react";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { MagneticButton } from "@/components/ui/MagneticButton";
+import { Mail, MapPin, Phone, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function ContactSection() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "", type: "individual" });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    // Simulate submission — replace with actual API call
-    await new Promise((r) => setTimeout(r, 1500));
-    setLoading(false);
-    setSubmitted(true);
+    setStatus("loading");
+    // Simulate network request
+    setTimeout(() => setStatus("success"), 1500);
   };
 
   return (
-    <section
-      id="contact"
-      className="section relative overflow-hidden"
-      style={{ background: "var(--cream-100)" }}
-    >
-      {/* Decorative */}
-      <div
-        className="absolute bottom-0 left-0 w-96 h-96 rounded-full opacity-20 pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, var(--sage-200), transparent 70%)",
-          transform: "translate(-30%, 30%)",
-        }}
-      />
+    <section id="contact" className="relative bg-[var(--color-bg)] py-32 lg:py-48">
+      <div className="container-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+          
+          {/* Left: Info */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <ScrollReveal>
+                <div className="label mb-6">Get in Touch</div>
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-[var(--color-text-1)] leading-[1.1] mb-8">
+                  Ready to start?
+                </h2>
+                <p className="text-[var(--color-text-2)] text-lg mb-12 max-w-md">
+                  Reach out for a free 15-minute consultation. We'll discuss what you're looking for and see if we're a good fit.
+                </p>
+              </ScrollReveal>
 
-      <div className="container relative z-10">
-        {/* Header */}
-        <FadeUp className="text-center mb-16">
-          <p className="section-label justify-center">Contact</p>
-          <h2
-            style={{
-              fontFamily: "var(--font-cormorant)",
-              fontSize: "clamp(2.2rem, 4vw, 3.5rem)",
-              fontWeight: 400,
-              color: "var(--primary-dark)",
-            }}
-          >
-            Get in touch
-          </h2>
-          <p
-            className="mt-4 max-w-md mx-auto text-sm"
-            style={{ color: "var(--charcoal-light)", fontFamily: "var(--font-inter)", lineHeight: 1.7 }}
-          >
-            Have a question or want to discuss your needs? 
-            Send a message or book directly online.
-          </p>
-        </FadeUp>
-
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-          {/* Left: contact info */}
-          <div className="lg:col-span-2">
-            <FadeUp>
-              <div className="space-y-4 mb-8">
-                {[
-                  {
-                    icon: MapPin,
-                    label: "Office",
-                    value: "Ortenovo náměstí 890/2\nHolešovice, 170 00 Praha\nCzech Republic",
-                    href: "https://maps.google.com/?q=Ortenovo+náměstí+890/2+Praha",
-                  },
-                  {
-                    icon: Phone,
-                    label: "Phone",
-                    value: "+420 722 199 439",
-                    href: "tel:+420722199439",
-                  },
-                  {
-                    icon: Mail,
-                    label: "Email",
-                    value: "trinityreda@gmail.com",
-                    href: "mailto:trinityreda@gmail.com",
-                  },
-                  {
-                    icon: Clock,
-                    label: "Hours",
-                    value: "Monday – Friday\n10:00 – 18:00",
-                    href: null,
-                  },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  const content = (
-                    <div
-                      className="card-premium p-5 flex items-start gap-4 group"
-                      style={{ background: "var(--surface)" }}
-                    >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: "var(--sage-100)" }}
-                      >
-                        <Icon size={18} style={{ color: "var(--sage-600)" }} />
-                      </div>
-                      <div>
-                        <p className="text-xs uppercase tracking-widest font-semibold mb-1" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                          {item.label}
-                        </p>
-                        <p
-                          className="text-sm leading-relaxed"
-                          style={{
-                            color: item.href ? "var(--primary)" : "var(--charcoal)",
-                            fontFamily: "var(--font-inter)",
-                            whiteSpace: "pre-line",
-                          }}
-                        >
-                          {item.value}
-                        </p>
-                      </div>
+              <div className="space-y-8">
+                <ScrollReveal delay={0.1}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
+                      <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
                     </div>
-                  );
-                  return item.href ? (
-                    <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="block transition-transform hover:-translate-y-0.5">
-                      {content}
-                    </a>
-                  ) : (
-                    <div key={item.label}>{content}</div>
-                  );
-                })}
-              </div>
-            </FadeUp>
+                    <div>
+                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Prague 1 Clinic</h4>
+                      <p className="text-[var(--color-text-3)] text-sm">Staré Město, Prague<br/>(Exact address provided upon booking)</p>
+                    </div>
+                  </div>
+                </ScrollReveal>
 
-            {/* Book online CTA */}
-            <FadeUp delay={150}>
-              <div
-                className="rounded-2xl p-7 text-center"
-                style={{
-                  background: "linear-gradient(135deg, var(--primary-dark), var(--primary))",
-                  boxShadow: "0 8px 30px rgba(45,74,56,0.25)",
-                }}
-              >
-                <p className="text-xs uppercase tracking-widest mb-3" style={{ color: "var(--sage-300)", fontFamily: "var(--font-inter)" }}>
-                  Prefer to book directly?
-                </p>
-                <p className="text-lg mb-5" style={{ fontFamily: "var(--font-cormorant)", color: "white", fontWeight: 400 }}>
-                  Online booking available 24/7
-                </p>
-                <a
-                  href="https://humblewarriorpsychology.simplybook.it"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-full transition-all"
-                  style={{
-                    background: "var(--accent)",
-                    color: "white",
-                    fontFamily: "var(--font-inter)",
-                  }}
-                >
-                  Book a Session →
-                </a>
+                <ScrollReveal delay={0.2}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[var(--color-surface-2)] border border-[var(--color-border)] flex items-center justify-center shrink-0">
+                      <Mail className="w-4 h-4 text-[var(--color-primary)]" />
+                    </div>
+                    <div>
+                      <h4 className="text-[var(--color-text-1)] font-medium mb-1">Email</h4>
+                      <a href="mailto:hello@humblewarriorpsych.com" className="text-[var(--color-text-3)] hover:text-[var(--color-primary)] transition-colors text-sm">
+                        hello@humblewarriorpsych.com
+                      </a>
+                    </div>
+                  </div>
+                </ScrollReveal>
               </div>
-            </FadeUp>
+            </div>
+            
+            <ScrollReveal delay={0.3}>
+              <div className="mt-16 pt-16 border-t border-[var(--color-border)]">
+                <p className="text-[var(--color-text-3)] text-sm mb-6">Or book directly through the portal:</p>
+                <MagneticButton href="https://humblewarriorpsychology.simplybook.it" target="_blank" className="btn btn-ghost w-full justify-between group">
+                  Open Booking Portal
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </MagneticButton>
+              </div>
+            </ScrollReveal>
           </div>
 
-          {/* Right: contact form */}
-          <div className="lg:col-span-3">
-            <FadeUp delay={100}>
-              <div
-                className="rounded-2xl p-8"
-                style={{
-                  background: "var(--surface)",
-                  border: "1px solid var(--border)",
-                  boxShadow: "0 4px 30px rgba(45,74,56,0.08)",
-                }}
-              >
-                {submitted ? (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div
-                      className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
-                      style={{ background: "var(--sage-100)" }}
-                    >
-                      <CheckCircle size={32} style={{ color: "var(--sage-500)" }} />
+          {/* Right: Form */}
+          <div className="lg:col-span-7">
+            <ScrollReveal direction="up" delay={0.2}>
+              <div className="glass rounded-[2rem] p-8 md:p-12 lg:p-16">
+                {status === "success" ? (
+                  <div className="flex flex-col items-center justify-center h-[400px] text-center">
+                    <div className="w-20 h-20 rounded-full bg-[var(--color-primary-glow)] flex items-center justify-center mb-6">
+                      <CheckCircle2 className="w-10 h-10 text-[var(--color-primary)]" />
                     </div>
-                    <h3
-                      className="text-2xl mb-3"
-                      style={{ fontFamily: "var(--font-cormorant)", color: "var(--primary-dark)", fontWeight: 400 }}
-                    >
-                      Message received!
-                    </h3>
-                    <p className="text-sm" style={{ color: "var(--charcoal-light)", fontFamily: "var(--font-inter)" }}>
-                      Trinity will get back to you within 1–2 business days.
-                    </p>
+                    <h3 className="font-display text-3xl text-[var(--color-text-1)] mb-4">Message Received</h3>
+                    <p className="text-[var(--color-text-2)]">I will get back to you within 24-48 hours.</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit}>
-                    <h3
-                      className="text-xl mb-6"
-                      style={{ fontFamily: "var(--font-cormorant)", color: "var(--primary-dark)", fontWeight: 500 }}
-                    >
-                      Send a message
-                    </h3>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                          Your Name *
-                        </label>
-                        <input
-                          type="text"
+                  <form onSubmit={handleSubmit} className="space-y-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                      <div className="relative group">
+                        <input 
+                          type="text" 
+                          id="name"
                           required
-                          value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
-                          placeholder="First name"
-                          className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200"
-                          style={{
-                            background: "var(--cream-100)",
-                            border: "1.5px solid var(--border)",
-                            color: "var(--charcoal)",
-                            fontFamily: "var(--font-inter)",
-                          }}
-                          onFocus={(e) => { e.target.style.borderColor = "var(--sage-400)"; e.target.style.boxShadow = "0 0 0 3px rgba(74,124,89,0.1)"; }}
-                          onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
+                          className="w-full bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text-1)] focus:outline-none focus:border-[var(--color-primary)] transition-colors peer placeholder-transparent"
+                          placeholder="Your name"
                         />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          placeholder="you@example.com"
-                          className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200"
-                          style={{
-                            background: "var(--cream-100)",
-                            border: "1.5px solid var(--border)",
-                            color: "var(--charcoal)",
-                            fontFamily: "var(--font-inter)",
-                          }}
-                          onFocus={(e) => { e.target.style.borderColor = "var(--sage-400)"; e.target.style.boxShadow = "0 0 0 3px rgba(74,124,89,0.1)"; }}
-                          onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                          Phone (optional)
-                        </label>
-                        <input
-                          type="tel"
-                          value={form.phone}
-                          onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                          placeholder="+420 ..."
-                          className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200"
-                          style={{
-                            background: "var(--cream-100)",
-                            border: "1.5px solid var(--border)",
-                            color: "var(--charcoal)",
-                            fontFamily: "var(--font-inter)",
-                          }}
-                          onFocus={(e) => { e.target.style.borderColor = "var(--sage-400)"; e.target.style.boxShadow = "0 0 0 3px rgba(74,124,89,0.1)"; }}
-                          onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                          Session Type
-                        </label>
-                        <select
-                          value={form.type}
-                          onChange={(e) => setForm({ ...form, type: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 appearance-none"
-                          style={{
-                            background: "var(--cream-100)",
-                            border: "1.5px solid var(--border)",
-                            color: "var(--charcoal)",
-                            fontFamily: "var(--font-inter)",
-                          }}
-                          onFocus={(e) => { e.target.style.borderColor = "var(--sage-400)"; e.target.style.boxShadow = "0 0 0 3px rgba(74,124,89,0.1)"; }}
-                          onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
+                        <label 
+                          htmlFor="name" 
+                          className="absolute left-0 top-4 text-[var(--color-text-3)] text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--color-primary)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs cursor-text"
                         >
-                          <option value="individual">Individual</option>
-                          <option value="couples">Couples</option>
-                          <option value="online">Online</option>
-                          <option value="consultation">Free Consultation</option>
-                        </select>
+                          Name
+                        </label>
+                      </div>
+                      
+                      <div className="relative group">
+                        <input 
+                          type="email" 
+                          id="email"
+                          required
+                          className="w-full bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text-1)] focus:outline-none focus:border-[var(--color-primary)] transition-colors peer placeholder-transparent"
+                          placeholder="Email address"
+                        />
+                        <label 
+                          htmlFor="email" 
+                          className="absolute left-0 top-4 text-[var(--color-text-3)] text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--color-primary)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs cursor-text"
+                        >
+                          Email Address
+                        </label>
                       </div>
                     </div>
 
-                    <div className="mb-6">
-                      <label className="block text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                        Message *
-                      </label>
-                      <textarea
+                    <div className="relative group">
+                      <input 
+                        type="text" 
+                        id="subject"
                         required
-                        rows={5}
-                        value={form.message}
-                        onChange={(e) => setForm({ ...form, message: e.target.value })}
-                        placeholder="What brings you to therapy? Feel free to share as much or as little as you're comfortable with..."
-                        className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-200 resize-none"
-                        style={{
-                          background: "var(--cream-100)",
-                          border: "1.5px solid var(--border)",
-                          color: "var(--charcoal)",
-                          fontFamily: "var(--font-inter)",
-                          lineHeight: 1.6,
-                        }}
-                        onFocus={(e) => { e.target.style.borderColor = "var(--sage-400)"; e.target.style.boxShadow = "0 0 0 3px rgba(74,124,89,0.1)"; }}
-                        onBlur={(e) => { e.target.style.borderColor = "var(--border)"; e.target.style.boxShadow = "none"; }}
+                        className="w-full bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text-1)] focus:outline-none focus:border-[var(--color-primary)] transition-colors peer placeholder-transparent"
+                        placeholder="Subject"
                       />
+                      <label 
+                        htmlFor="subject" 
+                        className="absolute left-0 top-4 text-[var(--color-text-3)] text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--color-primary)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs cursor-text"
+                      >
+                        What are you seeking help with?
+                      </label>
                     </div>
 
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="btn-primary w-full justify-center"
-                      style={{ fontSize: "0.85rem" }}
-                    >
-                      {loading ? (
-                        <span className="flex items-center gap-2">
-                          <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                          </svg>
-                          Sending...
-                        </span>
-                      ) : (
-                        <>
-                          Send Message <Send size={14} />
-                        </>
-                      )}
-                    </button>
+                    <div className="relative group">
+                      <textarea 
+                        id="message"
+                        required
+                        rows={4}
+                        className="w-full bg-transparent border-b border-[var(--color-border)] py-4 text-[var(--color-text-1)] focus:outline-none focus:border-[var(--color-primary)] transition-colors peer placeholder-transparent resize-none"
+                        placeholder="Message"
+                      />
+                      <label 
+                        htmlFor="message" 
+                        className="absolute left-0 top-4 text-[var(--color-text-3)] text-sm transition-all peer-focus:-top-4 peer-focus:text-xs peer-focus:text-[var(--color-primary)] peer-[:not(:placeholder-shown)]:-top-4 peer-[:not(:placeholder-shown)]:text-xs cursor-text"
+                      >
+                        Brief message (optional)
+                      </label>
+                    </div>
 
-                    <p className="text-center text-xs mt-4" style={{ color: "var(--muted)", fontFamily: "var(--font-inter)" }}>
-                      Trinity typically responds within 1–2 business days.
-                    </p>
+                    <div className="pt-4">
+                      <MagneticButton className="btn btn-primary w-full md:w-auto" onClick={() => {}}>
+                        {status === "loading" ? "Sending..." : "Send Message"}
+                      </MagneticButton>
+                    </div>
                   </form>
                 )}
               </div>
-            </FadeUp>
+            </ScrollReveal>
           </div>
+          
         </div>
       </div>
     </section>
